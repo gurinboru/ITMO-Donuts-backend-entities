@@ -55,13 +55,6 @@ class Order(Resource):
             raise BadRequest("Id not found")
 
 
-class Orders(Resource):
-    @marshal_with(order_fields)
-    def post(self):
-        data = order_post_parser.parse_args()
-        return dbm.add_order(data)
-
-
 class OrderPost(Resource):
     @marshal_with(order_fields)
     def post(self):
@@ -69,7 +62,7 @@ class OrderPost(Resource):
         return dbm.add_order(data)
 
 
-class OrdersByUser(Resource):
+class Orders(Resource):
     @marshal_with(order_fields)
     def get(self, username):
         try:
