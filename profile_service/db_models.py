@@ -40,7 +40,8 @@ class Orders(SqlAlchemyBase):
         return f'<Order> {self.order_id} ' \
                f'{self.user_id} ' \
                f'{self.order_date} ' \
-               f'{self.status}'
+               f'{self.status} ' \
+                f'{self.products}'
 
 
 class OrdersToProducts(SqlAlchemyBase):
@@ -49,6 +50,7 @@ class OrdersToProducts(SqlAlchemyBase):
     id = sa.Column(sa.Integer, primary_key=True)
     order_id = sa.Column(sa.Integer, sa.ForeignKey('orders.order_id'))
     product_id = sa.Column(sa.Integer, nullable=False)
+    count = sa.Column(sa.Integer, nullable=False, default=1)
 
     def __repr__(self):
         return f'<OrderToProduct> {self.id} ' \

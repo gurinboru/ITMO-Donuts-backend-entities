@@ -20,6 +20,9 @@ user_put_parser.add_argument('balance', type=int)
 order_post_parser = reqparse.RequestParser()
 order_post_parser.add_argument('user_id', type=int, required=True, help="User_id is required")
 order_post_parser.add_argument('order_date', type=str, required=True, help="Order_date is required")
+order_post_parser.add_argument('order_items', type=dict, required=True,
+                               help="order_items should be a list of dict with keys: product_id, count",
+                               action='append')
 
 order_put_parser = reqparse.RequestParser()
 order_put_parser.add_argument('order_status', type=str)
@@ -42,5 +45,6 @@ order_fields = {
     "status": fields.String,
     "products": fields.List(fields.Nested({
         "id": fields.Integer(attribute="product_id"),
+        "count": fields.Integer
     }))
 }

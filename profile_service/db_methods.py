@@ -11,7 +11,7 @@ class DBMethods:
 
     def get_user(self, username):
         session = self.db.get_session()
-        result = session.query(Users).filter(Users.username == username).first()
+        result = session.query(Users).filter(Users.username == username).one()
         if not result:
             raise IdNotFound
         return result
@@ -69,10 +69,9 @@ class DBMethods:
         new_order.order_date = data.get("order_date")
         new_order.status = data.get("status")
 
-        for el in data.get("products"):
-            new_order_to_product = OrdersToProducts()
-            new_order_to_product.product_id = el
-            new_order.products.append(new_order_to_product)
+        for product in data.get("order_items"):
+            new_order.products.append(OrdersToProducts(product_id=product.get("product_id"),
+                                                       count=product.get("count")))
 
         session.add(new_order)
         session.commit()
@@ -97,9 +96,9 @@ class DBMethods:
             raise IdNotFound
         return result
 
-    def get_orders_by_user(self, user_id):
+    def get_orders_by_user(self, username):
         session = self.db.get_session()
-        result = session.query(Orders).filter(Orders.user_id == user_id).all()
+        result = session.query(Orders).filter(Orders.username == username).all()
         if not result:
             raise IdNotFound
         return result
@@ -114,5 +113,6 @@ db_port = os.getenv("DB_PORT")
 if db_ip and db_port and db_login and db_password:
     dbm = DBMethods(f"mysql://{db_login}:{db_password}@{db_ip}:{db_port}/donuts_profile")
 else:
+    print(f"DB connection error: {db_ip}, {db_port}, {db_login}, {db_password}")
     raise Exception("You need to set environment variables DB_LOGIN, DB_PASSWORD, DB_IP and DB_PORT")
 

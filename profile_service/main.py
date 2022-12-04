@@ -21,13 +21,13 @@ api_base_url = "/api/v1/profile/"
 
 api.add_resource(User, api_base_url + "user/<string:username>")
 api.add_resource(UserPost, api_base_url + "user")
-api.add_resource(Users, api_base_url + "users/")
+api.add_resource(Users, api_base_url + "users")
 api.add_resource(Order, api_base_url + "order/<int:order_id>")
 api.add_resource(OrderPost, api_base_url + "order")
-api.add_resource(Orders, api_base_url + "orders/<int:user_id>")
+api.add_resource(Orders, api_base_url + "orders/<int:username>")
 
 
 if __name__ == "__main__":
     if consumer:
         consumer.run()
-    app.run(debug=False)
+    app.run(debug=True)

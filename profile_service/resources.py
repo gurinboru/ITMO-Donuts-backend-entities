@@ -7,17 +7,17 @@ from additions import user_fields, user_post_parser, user_put_parser, order_fiel
 
 class User(Resource):
     @marshal_with(user_fields)
-    def get(self, user_id):
+    def get(self, username):
         try:
-            return dbm.get_user(user_id)
+            return dbm.get_user(username)
         except IdNotFound:
             raise BadRequest("Id not found")
 
     @marshal_with(user_fields)
-    def put(self, user_id):
+    def put(self, username):
         data = user_put_parser.parse_args()
         try:
-            return dbm.update_user(user_id, data)
+            return dbm.update_user(username, data)
         except IdNotFound:
             raise BadRequest("Id not found")
 
