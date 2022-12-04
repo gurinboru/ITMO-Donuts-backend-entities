@@ -2,7 +2,11 @@ class DataBaseException(Exception):
     pass
 
 
-class EmailAlreadyExists(DataBaseException):
+class UsernameAlreadyExists(DataBaseException):
+    pass
+
+
+class UsernameNotFound(DataBaseException):
     pass
 
 

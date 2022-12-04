@@ -1,20 +1,28 @@
 from flask_restful import reqparse
 from flask_restful import fields
 
-post_parser = reqparse.RequestParser()
-post_parser.add_argument('email', type=str, required=True, help="Email is required")
-post_parser.add_argument('first_name', type=str, required=True, help="First_name is required")
-post_parser.add_argument('second_name', type=str, required=True, help="Second_name is required")
-post_parser.add_argument('date_of_birth', type=str)
-post_parser.add_argument('phone', type=str)
+user_post_parser = reqparse.RequestParser()
+user_post_parser.add_argument("username", type=str, required=True, help="Username is required")
+user_post_parser.add_argument('email', type=str)
+user_post_parser.add_argument('first_name', type=str)
+user_post_parser.add_argument('second_name', type=str)
+user_post_parser.add_argument('date_of_birth', type=str)
+user_post_parser.add_argument('phone', type=str)
 
-put_parser = reqparse.RequestParser()
-put_parser.add_argument('email', type=str)
-put_parser.add_argument('first_name', type=str)
-put_parser.add_argument('second_name', type=str)
-put_parser.add_argument('date_of_birth', type=str)
-put_parser.add_argument('phone', type=str)
-put_parser.add_argument('balance', type=int)
+user_put_parser = reqparse.RequestParser()
+user_put_parser.add_argument('email', type=str)
+user_put_parser.add_argument('first_name', type=str)
+user_put_parser.add_argument('second_name', type=str)
+user_put_parser.add_argument('date_of_birth', type=str)
+user_put_parser.add_argument('phone', type=str)
+user_put_parser.add_argument('balance', type=int)
+
+order_post_parser = reqparse.RequestParser()
+order_post_parser.add_argument('user_id', type=int, required=True, help="User_id is required")
+order_post_parser.add_argument('order_date', type=str, required=True, help="Order_date is required")
+
+order_put_parser = reqparse.RequestParser()
+order_put_parser.add_argument('order_status', type=str)
 
 
 user_fields = {
@@ -25,4 +33,14 @@ user_fields = {
     "date_of_birth": fields.String,
     "phone": fields.String,
     "balance": fields.Integer
+}
+
+order_fields = {
+    "id": fields.Integer(attribute="order_id"),
+    "user_id": fields.Integer,
+    "order_date": fields.String,
+    "status": fields.String,
+    "products": fields.List(fields.Nested({
+        "id": fields.Integer(attribute="product_id"),
+    }))
 }
