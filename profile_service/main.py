@@ -32,4 +32,4 @@ api.add_resource(HealthCheck, "/healthcheck")
 if __name__ == "__main__":
     if consumer:
         consumer.run()
-    app.run(debug=os.getenv("DEBUG", False))
+    app.run(debug=os.getenv("DEBUG", False), host="0.0.0.0", port="10000")
