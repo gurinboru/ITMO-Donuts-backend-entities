@@ -69,3 +69,8 @@ class Orders(Resource):
             return dbm.get_orders_by_user(username)
         except IdNotFound:
             raise BadRequest("Id not found")
+
+
+class HealthCheck(Resource):
+    def get(self):
+        return "OK"

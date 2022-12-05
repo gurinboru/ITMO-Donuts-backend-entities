@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api, Resource
-from resources import User, Users, UserPost, Order, Orders, OrderPost
+from resources import User, Users, UserPost, Order, Orders, OrderPost, HealthCheck
 from middleware import MiddleWare
 from kafka.errors import NoBrokersAvailable
 
@@ -25,6 +25,7 @@ api.add_resource(Users, api_base_url + "users")
 api.add_resource(Order, api_base_url + "order/<int:order_id>")
 api.add_resource(OrderPost, api_base_url + "order")
 api.add_resource(Orders, api_base_url + "orders/<int:username>")
+api.add_resource(HealthCheck, api_base_url + "healthcheck")
 
 
 if __name__ == "__main__":
