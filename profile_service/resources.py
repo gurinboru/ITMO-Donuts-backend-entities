@@ -1,6 +1,6 @@
 from flask_restful import Resource, marshal_with, abort
 from db_methods import dbm
-from errors import UsernameAlreadyExists, IdNotFound
+from errors import UsernameAlreadyExists, IdNotFound, UsernameNotFound
 from werkzeug.exceptions import BadRequest
 from additions import user_fields, user_post_parser, user_put_parser, order_fields, order_post_parser, order_put_parser
 
@@ -10,7 +10,7 @@ class User(Resource):
     def get(self, username):
         try:
             return dbm.get_user(username)
-        except IdNotFound:
+        except UsernameNotFound:
             raise BadRequest("Id not found")
 
     @marshal_with(user_fields)
@@ -18,7 +18,7 @@ class User(Resource):
         data = user_put_parser.parse_args()
         try:
             return dbm.update_user(username, data)
-        except IdNotFound:
+        except UsernameNotFound:
             raise BadRequest("Id not found")
 
 

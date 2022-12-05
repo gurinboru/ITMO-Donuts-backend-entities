@@ -22,5 +22,5 @@ class MiddleWare:
         except Exception as e:
             self.logger.error(f"Exception: {e} occurred in middleware layer while processing request "
                               f"{environ['PATH_INFO']} with method {environ['REQUEST_METHOD']}")
-            res = Response(u'Internal Server Error', mimetype='text/plain', status=500, body=str(e))
+            res = Response(u'Internal Server Error:', mimetype='text/plain', status=500)
             return res(environ, start_response)

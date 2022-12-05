@@ -3,6 +3,9 @@ from db_session import DataBase
 from errors import UsernameAlreadyExists, UsernameNotFound, IdNotFound
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class DBMethods:
@@ -13,7 +16,7 @@ class DBMethods:
         session = self.db.get_session()
         result = session.query(Users).filter(Users.username == username).one()
         if not result:
-            raise IdNotFound
+            raise UsernameNotFound
         return result
 
     def add_user(self, data: dict):
@@ -42,10 +45,9 @@ class DBMethods:
         user = session.query(Users).filter(Users.username == username).first()
 
         if not user:
-            raise IdNotFound
+            raise UsernameNotFound
 
         user.email = data.get("email") or user.email,
-        user.email = data.get("username") or user.username,
         user.first_name = data.get("first_name") or user.first_name,
         user.second_name = data.get("second_name") or user.second_name,
         user.date_of_birth = data.get("date_of_birth") or user.date_of_birth,
