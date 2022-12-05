@@ -30,6 +30,7 @@ order_put_parser.add_argument('order_status', type=str)
 
 user_fields = {
     "id": fields.Integer(attribute="user_id"),
+    "username":  fields.String,
     "email": fields.String,
     "first_name": fields.String,
     "second_name": fields.String,
