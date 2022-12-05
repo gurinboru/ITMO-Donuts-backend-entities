@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 from resources import User, Users, UserPost, Order, Orders, OrderPost, HealthCheck
 from middleware import MiddleWare
 from kafka.errors import NoBrokersAvailable
+import os
 
 
 try:
@@ -25,10 +26,10 @@ api.add_resource(Users, api_base_url + "users")
 api.add_resource(Order, api_base_url + "order/<int:order_id>")
 api.add_resource(OrderPost, api_base_url + "order")
 api.add_resource(Orders, api_base_url + "orders/<int:username>")
-api.add_resource(HealthCheck, api_base_url + "healthcheck")
+api.add_resource(HealthCheck, "healthcheck")
 
 
 if __name__ == "__main__":
     if consumer:
         consumer.run()
-    app.run(debug=True)
+    app.run(debug=os.getenv("DEBUG", False))
