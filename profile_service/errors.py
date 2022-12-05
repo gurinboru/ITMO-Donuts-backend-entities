@@ -12,3 +12,6 @@ class UsernameNotFound(DataBaseException):
 
 class IdNotFound(DataBaseException):
     pass
+
+class EmailAlreadyExists(DataBaseException):
+    pass

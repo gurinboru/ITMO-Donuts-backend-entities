@@ -1,6 +1,7 @@
 from db_models import Users, Orders, OrdersToProducts
 from db_session import DataBase
-from errors import UsernameAlreadyExists, UsernameNotFound, IdNotFound
+from errors import UsernameAlreadyExists, UsernameNotFound, IdNotFound, EmailAlreadyExists
+from sqlalchemy.exc import OperationalError
 
 import os
 from dotenv import load_dotenv
@@ -14,7 +15,7 @@ class DBMethods:
 
     def get_user(self, username):
         session = self.db.get_session()
-        result = session.query(Users).filter(Users.username == username).one()
+        result = session.query(Users).filter(Users.username == username).first()
         if not result:
             raise UsernameNotFound
         return result
@@ -24,6 +25,8 @@ class DBMethods:
 
         if session.query(Users).filter(Users.username == data.get("username")).first():
             raise UsernameAlreadyExists
+        if session.query(Users).filter(Users.email == data.get("email")).first():
+            raise EmailAlreadyExists
 
         new_user = Users()
 
@@ -104,6 +107,14 @@ class DBMethods:
         if not result:
             raise IdNotFound
         return result
+
+    def check_db(self) -> bool:
+        session = self.db.get_session()
+        try:
+            session.query(Users)
+            return True
+        except OperationalError:
+            return False
 
 
 db_login = os.getenv("DB_LOGIN")

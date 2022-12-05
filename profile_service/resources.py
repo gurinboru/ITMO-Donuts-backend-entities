@@ -1,7 +1,7 @@
 from flask_restful import Resource, marshal_with, abort
 from db_methods import dbm
-from errors import UsernameAlreadyExists, IdNotFound, UsernameNotFound
-from werkzeug.exceptions import BadRequest
+from errors import UsernameAlreadyExists, IdNotFound, UsernameNotFound, EmailAlreadyExists
+from werkzeug.exceptions import BadRequest, NotFound
 from additions import user_fields, user_post_parser, user_put_parser, order_fields, order_post_parser, order_put_parser
 
 
@@ -30,6 +30,8 @@ class UserPost(Resource):
             return dbm.add_user(data)
         except UsernameAlreadyExists:
             raise BadRequest("Username already exists")
+        except EmailAlreadyExists:
+            raise BadRequest("Email already exists")
 
 
 class Users(Resource):
@@ -73,4 +75,7 @@ class Orders(Resource):
 
 class HealthCheck(Resource):
     def get(self):
-        return "OK"
+        if dbm.check_db():
+            return "OK"
+        else:
+            raise NotFound("DB is not off")
