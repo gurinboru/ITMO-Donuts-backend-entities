@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Api
 from resources import User, Users, UserPost, Order, Orders, OrderPost, HealthCheck
 from middleware import MiddleWare
 from kafka.errors import NoBrokersAvailable

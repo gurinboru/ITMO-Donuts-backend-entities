@@ -1,6 +1,4 @@
-from flask import Flask
 import sqlalchemy.ext.declarative as dec
-from sqlalchemy.orm import Session
 from sqlalchemy import orm
 
 import sqlalchemy as sa

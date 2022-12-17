@@ -2,7 +2,7 @@ from kafka.consumer.fetcher import ConsumerRecord
 from flask_kafka import FlaskKafka
 from threading import Event
 from db_methods import dbm
-from logging import getLogger, INFO, StreamHandler, Formatter
+from logging import getLogger, StreamHandler, Formatter
 
 import sys
 import os
