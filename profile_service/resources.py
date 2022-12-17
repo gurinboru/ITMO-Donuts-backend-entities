@@ -78,4 +78,4 @@ class HealthCheck(Resource):
         if dbm.check_db():
             return "OK"
         else:
-            raise NotFound("DB is not off")
+            raise NotFound("DB is not working")

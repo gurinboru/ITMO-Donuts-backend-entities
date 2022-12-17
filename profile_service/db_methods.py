@@ -103,15 +103,14 @@ class DBMethods:
 
     def get_orders_by_user(self, username):
         session = self.db.get_session()
-        result = session.query(Orders).filter(Orders.username == username).all()
-        if not result:
-            raise IdNotFound
-        return result
+        user = session.query(Users).filter(Users.username == username).first()
+        if not user:
+            raise UsernameNotFound
+        return user.orders
 
     def check_db(self) -> bool:
-        session = self.db.get_session()
         try:
-            session.query(Users)
+            self.db.get_session()
             return True
         except OperationalError:
             return False
@@ -128,4 +127,3 @@ if db_ip and db_port and db_login and db_password:
 else:
     print(f"DB connection error: {db_ip}, {db_port}, {db_login}, {db_password}")
     raise Exception("You need to set environment variables DB_LOGIN, DB_PASSWORD, DB_IP and DB_PORT")
-
