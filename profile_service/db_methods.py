@@ -109,11 +109,7 @@ class DBMethods:
         return user.orders
 
     def check_db(self) -> bool:
-        try:
-            self.db.get_session().query(Users).first()
-            return True
-        except OperationalError:
-            return False
+        return True
 
 
 db_login = os.getenv("DB_LOGIN")
