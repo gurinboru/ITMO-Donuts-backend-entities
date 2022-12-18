@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: donuts profile api
+  version: 1.0.0
+servers:
+  - url: https://donut-profile-service.onrender.com
+paths:
+  /api/v1/profile/order:
+    post:
+      tags:
+        - default
+      summary: post order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                user_id: 23
+                order_date: 22.12.04
+                order_items:
+                  - product_id: 1
+                    count: 2
+                  - product_id: 2
+                  - product_id: 3
+                    count: 8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                "id": 16,
+                "user_id": 23,
+                "order_date": null,
+                "status": "0",
+                "products": [
+                    {
+                        "id": 1,
+                        "count": 2
+                    },
+                    {
+                        "id": 2,
+                        "count": 1
+                    },
+                    {
+                        "id": 3,
+                        "count": 8
+                    }
+                ]
+            }
+  /api/v1/profile/user/Pol:
+    get:
+      tags:
+        - default
+      summary: get user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                {
+                    "id": 24,
+                    "username": "Pol",
+                    "email": "Hhgghhhh@fghu.hh",
+                    "first_name": "Pol",
+                    "second_name": null,
+                    "date_of_birth": "2005-01-16",
+                    "phone": "+375291234567",
+                    "balance": 0
+                }
+            }
+    put:
+      tags:
+        - default
+      summary: update user data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                balance: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                {
+                    "id": 24,
+                    "username": "Pol",
+                    "email": "Hhgghhhh@fghu.hh",
+                    "first_name": "Pol",
+                    "second_name": "None",
+                    "date_of_birth": "datetime.date(2005, 1, 16)",
+                    "phone": "+375291234567",
+                    "balance": 0
+                }
+            }
+  /api/v1/profile/user:
+    post:
+      tags:
+        - default
+      summary: post user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: pipipupu
+                email: asdasdasd
+                first_name: Nikita
+                second_name: Cukishev
+                date_of_birth: '2004-04-25'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                {
+                    "id": 33,
+                    "username": "pipipupu",
+                    "email": "asdasdasd",
+                    "first_name": "Nikita",
+                    "second_name": "Cukishev",
+                    "date_of_birth": "datetime.datetime(2004, 4, 25, 0, 0)",
+                    "phone": null,
+                    "balance": 10000
+                }
+            }
+  /api/v1/profile/users:
+    get:
+      tags:
+        - default
+      summary: get all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                [
+                    {
+                        "id": 16,
+                        "username": "Test30",
+                        "email": null,
+                        "first_name": null,
+                        "second_name": null,
+                        "date_of_birth": null,
+                        "phone": null,
+                        "balance": 10000
+                    },
+                    {
+                        "id": 17,
+                        "username": "Test34",
+                        "email": null,
+                        "first_name": null,
+                        "second_name": null,
+                        "date_of_birth": null,
+                        "phone": null,
+                        "balance": 10000
+                    },
+                ]
+            }
