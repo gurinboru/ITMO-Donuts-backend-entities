@@ -110,7 +110,7 @@ class DBMethods:
 
     def check_db(self) -> bool:
         try:
-            self.db.get_session()
+            self.db.get_session().query(Users).first()
             return True
         except OperationalError:
             return False
