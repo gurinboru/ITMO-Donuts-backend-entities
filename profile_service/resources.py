@@ -69,7 +69,7 @@ class Orders(Resource):
     def get(self, username):
         try:
             return dbm.get_orders_by_user(username)
-        except IdNotFound:
+        except UsernameNotFound:
             raise BadRequest("Username not found")
 
 
