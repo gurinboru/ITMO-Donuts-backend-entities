@@ -48,7 +48,7 @@ paths:
                     }
                 ]
             }
-  /api/v1/profile/user/Pol:
+  /api/v1/profile/user/<string:username>:
     get:
       tags:
         - default
@@ -58,16 +58,14 @@ paths:
           description: Successful response
           content:
             application/json: {
-                {
-                    "id": 24,
-                    "username": "Pol",
-                    "email": "Hhgghhhh@fghu.hh",
-                    "first_name": "Pol",
-                    "second_name": null,
-                    "date_of_birth": "2005-01-16",
-                    "phone": "+375291234567",
-                    "balance": 0
-                }
+                "id": 24,
+                "username": "Pol",
+                "email": "Hhgghhhh@fghu.hh",
+                "first_name": "Pol",
+                "second_name": null,
+                "date_of_birth": "2005-01-16",
+                "phone": "+375291234567",
+                "balance": 0
             }
     put:
       tags:
@@ -85,16 +83,14 @@ paths:
           description: Successful response
           content:
             application/json: {
-                {
-                    "id": 24,
-                    "username": "Pol",
-                    "email": "Hhgghhhh@fghu.hh",
-                    "first_name": "Pol",
-                    "second_name": "None",
-                    "date_of_birth": "datetime.date(2005, 1, 16)",
-                    "phone": "+375291234567",
-                    "balance": 0
-                }
+                "id": 24,
+                "username": "Pol",
+                "email": "Hhgghhhh@fghu.hh",
+                "first_name": "Pol",
+                "second_name": "None",
+                "date_of_birth": "datetime.date(2005, 1, 16)",
+                "phone": "+375291234567",
+                "balance": 0
             }
   /api/v1/profile/user:
     post:
@@ -117,16 +113,14 @@ paths:
           description: Successful response
           content:
             application/json: {
-                {
-                    "id": 33,
-                    "username": "pipipupu",
-                    "email": "asdasdasd",
-                    "first_name": "Nikita",
-                    "second_name": "Cukishev",
-                    "date_of_birth": "datetime.datetime(2004, 4, 25, 0, 0)",
-                    "phone": null,
-                    "balance": 10000
-                }
+                "id": 33,
+                "username": "pipipupu",
+                "email": "asdasdasd",
+                "first_name": "Nikita",
+                "second_name": "Cukishev",
+                "date_of_birth": "datetime.datetime(2004, 4, 25, 0, 0)",
+                "phone": null,
+                "balance": 10000
             }
   /api/v1/profile/users:
     get:
@@ -159,5 +153,67 @@ paths:
                         "phone": null,
                         "balance": 10000
                     },
+                ]
+            }
+   /api/v1/profile/orders/<string:username>:
+    get:
+      tags:
+        - default
+      summary: get orders by user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                [
+                    {
+                        "id": 17,
+                        "user_id": 24,
+                        "order_date": null,
+                        "status": "0",
+                        "products": [
+                            {
+                                "id": 1,
+                                "count": 2
+                            },
+                            {
+                                "id": 2,
+                                "count": 1
+                            },
+                            {
+                                "id": 3,
+                                "count": 8
+                            }
+                        ]
+                    }
+                ]
+            }
+  /api/v1/profile/order/<int:order_id>:
+    get:
+      tags:
+        - default
+      summary: get order
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {
+                "id": 16,
+                "user_id": 23,
+                "order_date": null,
+                "status": "0",
+                "products": [
+                    {
+                        "id": 1,
+                        "count": 2
+                    },
+                    {
+                        "id": 2,
+                        "count": 1
+                    },
+                    {
+                        "id": 3,
+                        "count": 8
+                    }
                 ]
             }
