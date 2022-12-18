@@ -11,7 +11,7 @@ class DataBase:
     def __init__(self, conn_str):
         from db_models import Users, Orders, OrdersToProducts
 
-        engine = sa.create_engine(conn_str, echo=False)
+        engine = sa.create_engine(conn_str, echo=False, max_overflow=-1)
         self.factory = orm.sessionmaker(bind=engine)
 
         SqlAlchemyBase.metadata.create_all(engine)
