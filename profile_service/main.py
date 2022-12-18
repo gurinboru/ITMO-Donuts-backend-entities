@@ -25,7 +25,7 @@ api.add_resource(UserPost, api_base_url + "user")
 api.add_resource(Users, api_base_url + "users")
 api.add_resource(Order, api_base_url + "order/<int:order_id>")
 api.add_resource(OrderPost, api_base_url + "order")
-api.add_resource(Orders, api_base_url + "orders/<str:username>")
+api.add_resource(Orders, api_base_url + "orders/<string:username>")
 api.add_resource(HealthCheck, "/healthcheck")
 
 
